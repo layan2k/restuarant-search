@@ -1,29 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, View } from 'react-native';
-import Header from './src/components/Header';
-import Search from './src/components/Search';
-import { useState } from 'react';
-import Categories from './src/components/Categories';
-import Restaurants from './src/components/Restaurants';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react'
+import HomeScreen from './src/screens/HomeScreen';
+import RestaurantScreen from './src/screens/RestaurantScreen';
 
-export default function App() {
-  const [itemActive, setitemActive] = useState("Burger");
+
+const Stack = createNativeStackNavigator()
+const App = () => {
+  console.log(process.env.EXPO_PUBLIC_API_KEY)
   return (
-    <View style={styles.container}>
-      <Header />
-      <Search setTerm={setitemActive} />
-      <Categories itemActive={itemActive} setitemActive={setitemActive} />
-      <Restaurants />
-      <StatusBar style='auto'/>
-    </View>
-  );
+    <NavigationContainer>
+      <Stack.Navigator >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name='Restaurant' component={RestaurantScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
-const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // }
-});
+export default App
